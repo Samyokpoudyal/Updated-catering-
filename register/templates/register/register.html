@@ -1,0 +1,39 @@
+{% extends 'foodcateringtem/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block maincontent %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+
+  <!-- Form Card -->
+  <div class="relative max-w-md w-full bg-white p-10 rounded-3xl shadow-2xl">
+    
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <h2 class="text-3xl font-extrabold text-amber-700">Join S&S Food Catering</h2>
+      <p class="text-sm text-gray-600 mt-2">Create your account to manage your orders easily.</p>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" class="space-y-6">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <button type="submit"
+              class="w-full py-3 px-4 rounded-full bg-amber-500 text-white font-semibold hover:bg-amber-600 transition duration-300">
+        Sign Up
+      </button>
+    </form>
+
+    <!-- Footer Links -->
+    <div class="text-center mt-4">
+      <small class="text-gray-600">
+        Already have an account?
+        <a href="{% url 'login'%}" class="text-amber-500 hover:text-amber-600 font-semibold ml-1 transition duration-300">
+          Sign In
+        </a>
+      </small>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}

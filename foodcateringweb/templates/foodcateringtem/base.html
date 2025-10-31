@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S&S Food Catering Services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-sans bg-gray-50 text-gray-800 relative">
+
+  <header class="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 shadow-lg">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+      
+     
+    <a href="{% url 'foodcateringweb.home' %}" class="flex items-center space-x-2">
+      <img src="{% static 'menu.png' %}" alt="Logo" class="w-10 h-10 rounded-full shadow-md border-2 border-white/60">
+      <h1 class="text-xl md:text-2xl font-bold text-white tracking-wide drop-shadow-sm">
+        S&S Food Catering
+      </h1>
+    </a>
+
+
+      
+      <div class="hidden md:flex space-x-8">
+        <a href="{% url 'foodcateringweb.home' %}#about" class="text-white/90 hover:text-yellow-200 font-medium transition duration-300">About</a>
+        <a href="{% url 'foodcateringweb.home' %}#services" class="text-white/90 hover:text-yellow-200 font-medium transition duration-300">Services</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="text-white/90 hover:text-yellow-200 font-medium transition duration-300">Profile</a>
+        <a href="{% url 'logout' %}" class="text-white/90 hover:text-yellow-200 font-medium transition duration-300">Logout</a>
+        {% else %}
+        <a href="{% url 'register' %}" class="text-white/90 hover:text-yellow-200 font-medium transition duration-300">Register</a>
+        <a href="{% url 'login' %}" class="text-white/90 hover:text-yellow-200 font-medium transition duration-300">Login</a>
+
+        {% endif %}
+      </div>
+
+      
+      <div class="hidden md:block">
+        <a href="#contact" class="bg-white text-amber-700 hover:bg-amber-100 font-semibold py-2 px-5 rounded-full shadow-md transition duration-300">
+          Contact Us
+        </a>
+      </div>
+
+      
+      <div class="md:hidden">
+        <button class="text-white text-2xl">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  
+ <div class="h-20"></div>
+
+
+  {% block maincontent %}
+  {% endblock %}
+
+  
+  <footer class="bg-gray-900 text-gray-300 text-center py-6 mt-16">
+    <p class="text-sm md:text-base font-medium">© 2025 S&S Food Catering Services. All rights reserved.</p>
+    <p class="text-xs md:text-sm text-gray-400">Delicious moments delivered with care 🍴</p>
+  </footer>
+
+</body>
+</html>

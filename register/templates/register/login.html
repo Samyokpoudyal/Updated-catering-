@@ -1,0 +1,52 @@
+{% extends 'foodcateringtem/base.html' %}
+{% load crispy_forms_tags %}
+{% block maincontent %}
+
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-100 via-white to-amber-200 py-12 px-6">
+  <div class="max-w-md w-full bg-white p-10 rounded-3xl shadow-2xl transition-transform transform hover:scale-105 duration-300">
+
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <h2 class="text-3xl font-extrabold text-amber-700">Welcome Back!</h2>
+      <p class="mt-2 text-sm text-amber-600">Log in to continue to S&S Food Catering 🍽️</p>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" class="space-y-6">
+      {% csrf_token %}
+      <fieldset class="space-y-4">
+        <legend class="text-lg font-semibold text-amber-700 border-b border-amber-300 pb-2">Login</legend>
+        {{ form|crispy }}
+      </fieldset>
+
+      <!-- Submit Button -->
+      <div>
+        <button type="submit"
+          class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-lg text-white bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400 transition duration-300">
+          Log In
+        </button>
+      </div>
+
+      <!-- Password Reset Link -->
+      <div class="text-left mt-2">
+        <a href="{% url 'change-password' %}" class="text-amber-600 hover:text-amber-700 text-sm font-medium transition duration-300">
+          Forgot Password?
+        </a>
+      </div>
+
+    </form>
+
+    <!-- Footer -->
+    <div class="text-center border-t border-amber-300 pt-4 mt-6">
+      <small class="text-gray-700">
+        Need an account?
+        <a href="{% url 'register' %}" class="text-amber-600 hover:text-amber-700 font-semibold ml-1 transition duration-300">
+          Sign Up
+        </a>
+      </small>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

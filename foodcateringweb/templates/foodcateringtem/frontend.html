@@ -1,0 +1,101 @@
+{% extends "foodcateringtem/base.html" %}
+{% load static %}
+
+
+{% block maincontent %}
+
+  <!-- Hero Section -->
+  <section class="h-screen bg-[url('{% static "bg-img.jpg" %}')] bg-cover bg-center flex items-center justify-center">
+    <div class="text-center text-white px-4">
+      <h2 class="text-5xl font-bold mb-4">Premium Catering for Every Occasion</h2>
+      <p class="text-lg mb-6">Delight your guests with our world-class food and service.</p>
+      <a href="#menu" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full transition">Explore Services</a>
+    </div>
+  </section>
+ 
+
+  <!-- About Section -->
+  <section id="about" class="py-20 px-8 bg-white text-center">
+    <h2 class="text-3xl font-bold mb-6 text-amber-600">About Us</h2>
+    <p class="max-w-2xl mx-auto text-gray-600">
+      At S&S Food Catering, we specialize in creating unforgettable dining experiences with carefully crafted menus,
+      fresh ingredients, and impeccable presentation. Whether it’s a wedding, corporate event, or private dinner, we make every moment delicious.
+    </p>
+  </section>
+  
+  <!-- Menu Section -->
+  <section id="services" class="py-20 px-8 bg-gray-100 text-center">
+  <h2 class="text-3xl font-bold mb-10 text-amber-600">Our Services</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+    <!-- Party Pack -->
+    <a href="{% url 'party' %}" class="block transform hover:scale-105 transition duration-300">
+      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl">
+        <img src="{% static 'partyservices.jpg' %}" alt="Appetizer" class="rounded-lg mb-4 w-full">
+        <h3 class="text-xl font-semibold mb-2">Party Pack</h3>
+        <p class="text-gray-600">Kick off your celebration with a burst of flavour in every bite.</p>
+      </div>
+    
+    </a>
+
+    <!-- Lunchbox Services -->
+    <a href="{% url 'lunchbox' %}" class="block transform hover:scale-105 transition duration-300">
+      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl">
+        <img src="{% static 'lunchbox.jpeg' %}" alt="Main Course" class="rounded-lg mb-4 w-full">
+    <h3 class="text-xl font-semibold mb-2">Lunchbox Services</h3>
+        <p class="text-gray-600">Deliciously crafted meals, perfect for your busy day.</p>
+      </div>
+    </a>
+
+    <!-- Catering Services -->
+    <a href="{% url 'catering' %}" class="block transform hover:scale-105 transition duration-300">
+      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl">
+        <img src="{% static 'cateringpictures.jpg' %}" alt="Dessert" class="rounded-lg mb-4 w-full">
+        <h3 class="text-xl font-semibold mb-2">Catering Services</h3>
+        <p class="text-gray-600">Make every event memorable with our gourmet touch.</p>
+      <div>
+    </a>
+
+  </div>
+</section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 px-8 bg-white text-center">
+  <h2 class="text-3xl font-bold mb-6 text-amber-600">Contact Us</h2>
+  <p class="text-gray-600 mb-8">We’d love to make your next event unforgettable. Reach out to us today!</p>
+
+  <form action="mailto:poudyalsamyok@gmail.com" method="POST" enctype="text/plain" class="max-w-xl mx-auto text-left">
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
+      <input type="text" id="name" name="name" required 
+             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
+    </div>
+
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+      <input type="email" id="email" name="email" required 
+             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
+    </div>
+
+    <div class="mb-4">
+      <label for="subject" class="block text-gray-700 font-semibold mb-2">Subject</label>
+      <input type="text" id="subject" name="subject" required 
+             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
+    </div>
+
+    <div class="mb-6">
+      <label for="message" class="block text-gray-700 font-semibold mb-2">Message</label>
+      <textarea id="message" name="message" rows="5" required
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"></textarea>
+    </div>
+
+    <button type="submit" 
+            class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-full transition">
+      Send Message
+    </button>
+  </form>
+</section>
+
+  
+
+  {% endblock %}

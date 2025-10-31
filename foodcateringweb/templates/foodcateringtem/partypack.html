@@ -1,0 +1,57 @@
+{% extends "foodcateringtem/frontend.html" %}
+{% load static %}
+
+{% block maincontent %}
+<!-- Hero Section -->
+<section class="h-screen bg-[url('{% static "partyservices.jpg" %}')] bg-cover bg-center flex items-center justify-center">
+  <div class="text-center text-white px-6 py-12 bg-black/50 rounded-2xl max-w-3xl">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-lg">Party Packs</h2>
+    <p class="text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow">
+      Celebrate your moments with flavor, freshness, and festive energy. S&S Food Catering makes every event special.
+    </p>
+    <a href="#menu" 
+       class="mt-6 inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+      View Menu 🍽️
+    </a>
+  </div>
+</section>
+
+<!-- Content Section -->
+<section class="py-16 px-6 md:px-12 bg-gray-50 text-gray-700">
+  <div class="max-w-4xl mx-auto text-center space-y-6">
+    <p class="text-base md:text-base leading-relaxed">
+      S&S Food Catering Services will pack and deliver the food in hotcases for the desired number of people.  
+      Whether at home, in the office, or at an event, we ensure your guests enjoy fresh and delicious meals.
+    </p>
+
+    <p class="text-base md:text-base">
+      Our convenient delivery service in Kathmandu is perfect for:
+    </p>
+
+    <ul class="list-disc list-inside text-left md:text-base space-y-1 text-gray-800 inline-block">
+      <li>Hosting guests at home without extra help.</li>
+      <li>Small get-togethers or partially ordered meals.</li>
+      <li>Birthday parties or kitty parties.</li>
+      <li>Pasni ceremonies or other cultural events.</li>
+      <li>Any special small event or celebration.</li>
+        <li>Price is not fixed for this service.</li>
+        <li>Delivery charge will be applicable for this service as per your location.</li>
+        <li> Hot cases are dropped & picked up the same day or the next day according to your convenience.</li>
+       <li>  50% advance to be given for booking.</li>
+    </ul>
+
+    <p class="font-medium text-gray-800 text-base">
+      The food we deliver is always ready to eat — fresh, delicious, and served right to your table.
+    </p>
+  </div>
+</section>
+
+<!-- Menu Section -->
+<section id="menu" class="py-12 bg-white flex flex-col items-center gap-4">
+  <img src="{% static 'menu.png' %}" alt="Menu" class="w-24 h-24 object-cover rounded-full shadow-xl border-4 border-amber-500">
+  <a href="{% url 'menuitemsview' %}" 
+     class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+    Explore Full Menu 🍽️
+  </a>
+</section>
+{% endblock %}

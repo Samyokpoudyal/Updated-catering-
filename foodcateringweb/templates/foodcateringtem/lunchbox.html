@@ -1,0 +1,58 @@
+{% extends "foodcateringtem/frontend.html" %}
+{% load static %}
+
+{% block maincontent %}
+<!-- Hero Section -->
+<section class="h-screen bg-[url('{% static "lunchbox.jpeg" %}')] bg-cover bg-center flex items-center justify-center">
+  <div class="text-center text-white px-6 py-12 bg-black/50 rounded-2xl max-w-3xl">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-lg">Lunch Box Services</h2>
+    <p class="text-base md:text-base max-w-2xl mx-auto leading-relaxed drop-shadow">
+      Delicious, fresh, and ready-to-go! Our lunch boxes bring convenience and flavor together — perfect for work, school, or any busy day. Freshly packed, wholesome, and delivered right to you.
+    </p>
+    <a href="#menu" 
+       class="mt-6 inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+      View Menu 🍽️
+    </a>
+  </div>
+</section>
+
+<!-- Content Section -->
+<section class="py-16 px-6 md:px-12 bg-gray-50 text-gray-700">
+  <div class="max-w-4xl mx-auto text-center space-y-6">
+    <p class="text-base md:text-base leading-relaxed">
+      S&S Food Catering Services prepares and delivers freshly packed lunch boxes for individuals, offices, schools, or small gatherings.  
+      Whether at work, at home, or on the go, we ensure every meal is fresh, wholesome, and ready to enjoy.
+    </p>
+
+    <p class="text-base md:text-base">
+      Our convenient lunch box service in Kathmandu is perfect for:
+    </p>
+
+    <ul class="list-disc list-inside text-left md:text-base space-y-1 text-gray-800 inline-block">
+      <li>Office lunches for employees or meetings</li>
+      <li>School or college meals for students</li>
+      <li>Quick, grab-and-go meals for busy days</li>
+      <li>Small gatherings or casual get-togethers</li>
+      <li>Personal meal plans or dietary-specific lunches</li>
+      <li>Price varies depending on the menu and quantity</li>
+      <li>Delivery charges apply based on your location</li>
+      <li>Lunch boxes are delivered fresh and ready to eat</li>
+      <li>Orders should be placed in advance to ensure timely preparation</li>
+      <li>50% advance payment is required to confirm your booking</li>
+    </ul>
+
+    <p class="font-medium text-gray-800 text-base">
+      With S&S Food Catering, every lunch box is packed with care, balanced flavors, and fresh ingredients — making your mealtime convenient, delicious, and stress-free.
+    </p>
+  </div>
+</section>
+
+<!-- Menu Section -->
+<section id="menu" class="py-12 bg-white flex flex-col items-center gap-4">
+  <img src="{% static 'menu.png' %}" alt="Menu" class="w-24 h-24 object-cover rounded-full shadow-xl border-4 border-amber-500">
+  <a href="#" 
+     class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+    Explore Full Menu 🍽️
+  </a>
+</section>
+{% endblock %}

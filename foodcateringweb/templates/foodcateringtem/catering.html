@@ -1,0 +1,58 @@
+{% extends "foodcateringtem/frontend.html" %}
+{% load static %}
+
+{% block maincontent %}
+<!-- Hero Section -->
+<section class="h-screen bg-[url('{% static "cateringpictures.jpg" %}')] bg-cover bg-center flex items-center justify-center">
+  <div class="text-center text-white px-6 py-12 bg-black/50 rounded-2xl max-w-3xl">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 drop-shadow-lg">Catering Services</h2>
+    <p class="text-base md:text-base max-w-2xl mx-auto leading-relaxed drop-shadow">
+      Celebrate your moments with flavor, freshness, and festive energy. S&S Food Catering makes every event special.
+    </p>
+    <a href="#menu" 
+       class="mt-6 inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+      View Menu 🍽️
+    </a>
+  </div>
+</section>
+
+<!-- Content Section -->
+<section class="py-16 px-6 md:px-12 bg-gray-50 text-gray-700">
+  <div class="max-w-4xl mx-auto text-center space-y-6">
+
+    <p class="text-base md:text-base leading-relaxed">
+      S&S Food Catering will cater to small gatherings at home, events, or offices for 30+ people. Our catering services in Kathmandu serve hot, fresh food at the venue of your choice. For 10 years, we’ve delivered joy through our food, making every event special. We are happy to come to your homes or offices and cater food hot and fresh. We also provide event and office catering services according to your requirements.
+    </p>
+
+    <p class="text-base md:text-base">
+      Our convenient delivery service in Kathmandu is perfect for:
+    </p>
+
+    <ul class="list-disc list-inside text-left md:text-base space-y-1 text-gray-800 inline-block">
+      <li>Minimum 30 people required for this service.</li>
+      <li>Price is not fixed for this service.</li>
+      <li>Minimum people must be provided at booking; charges apply for minimum & additional plates eaten.</li>
+      <li>Our staff will provide utensils and serve the food.</li>
+      <li>We bring tables only to lay our own food; no tables, chairs, or tents for guests.</li>
+      <li>We can provide tent provider contact info if needed.</li>
+      <li>Food is served in catering vessels to stay hot.</li>
+      <li>50% advance payment required for booking, balance on the day.</li>
+      <li>Confirmation must be given 3 days in advance; site inspection is available.</li>
+    </ul>
+
+    <p class="font-medium text-gray-800 text-base">
+      The food we deliver is always ready to eat — fresh, delicious, and served right to your table.
+    </p>
+
+  </div>
+</section>
+
+<!-- Menu Section -->
+<section id="menu" class="py-12 bg-white flex flex-col items-center gap-4">
+  <img src="{% static 'menu.png' %}" alt="Menu" class="w-24 h-24 object-cover rounded-full shadow-xl border-4 border-amber-500">
+  <a href="#" 
+     class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+    Explore Full Menu 🍽️
+  </a>
+</section>
+{% endblock %}
