@@ -1,0 +1,155 @@
+{% extends "foodcateringtem/frontend.html" %}
+{% load static %}
+
+{% block maincontent %}
+<section class="py-12 bg-white flex flex-col items-center gap-8">
+  <h1 class="text-3xl font-bold mb-6">Lunchbox Menu</h1>
+
+  {% for category in categories %}
+  <form method="POST" action="{% url 'lunchbox' %}" class="w-full max-w-4xl" id="form_{{ category.id }}">
+    {% csrf_token %}
+    <div class="bg-gray-100 p-6 rounded-2xl shadow-lg mb-6">
+
+      <h2 class="text-2xl font-bold text-center mb-4">
+        {{ category.name }} - Rs. {{ category.price_info }}
+      </h2>
+
+      {% if not request.user.is_authenticated %}
+        <p class="text-red-500 text-center mb-4">
+          Please <a href="{% url 'login' %}" class="underline">log in</a> to place an order.
+        </p>
+      {% endif %}
+
+      {% for dish in category.dishes.all %}
+      <div class="mb-3 border-b border-gray-300 pb-2">
+        <p class="text-lg font-semibold">{{ dish.name }}</p>
+        {% if dish.subitems.all %}
+          <div class="ml-4 space-y-1">
+            {% for sub in dish.subitems.all %}
+            <label class="flex items-center gap-2 text-gray-700">
+              <input type="checkbox"
+                     name="dish_{{ dish.id }}"
+                     value="{{ sub.id }}"
+                     class="accent-amber-500 scale-110"
+                     {% if not request.user.is_authenticated %}disabled{% endif %}>
+              {{ sub.name }}
+            </label>
+            {% endfor %}
+          </div>
+        {% else %}
+          <label class="flex items-center gap-2 text-gray-700">
+            <input type="checkbox"
+                   name="dishes_{{ category.id }}"
+                   value="{{ dish.id }}"
+                   class="accent-amber-500 scale-110"
+                   {% if not request.user.is_authenticated %}disabled{% endif %}>
+            Select
+          </label>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <label class="block text-sm font-semibold text-gray-500 mt-4 mb-1">
+        Delivery Address
+      </label>
+      <div class="flex gap-2 items-center">
+        <input type="text"
+               id="address_{{ category.id }}"
+               name="delivery_address"
+               class="w-full border rounded-md px-3 py-2 text-sm mb-2"
+               placeholder="Enter delivery address"
+               required
+               {% if not request.user.is_authenticated %}disabled{% endif %}>
+        
+        <button type="button" 
+                onclick="getLocation('{{ category.id }}')"
+                class="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition shadow-md whitespace-nowrap"
+                {% if not request.user.is_authenticated %}disabled{% endif %}>
+          Use Location
+        </button>
+      </div>
+
+      <input type="hidden" id="lat_{{ category.id }}" name="latitude">
+      <input type="hidden" id="lng_{{ category.id }}" name="longitude">
+
+      <label class="block text-sm font-semibold text-gray-500 mt-4 mb-1">
+        Event Date
+      </label>
+      <input type="date"
+             name="event_date"
+             required
+             class="w-full border rounded-md px-3 py-2 text-sm mb-4"
+             {% if not request.user.is_authenticated %}disabled{% endif %}>
+
+      <button type="submit"
+              name="category_id"
+              value="{{ category.id }}"
+              {% if not request.user.is_authenticated %}disabled{% endif %}
+              class="w-full bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-lg font-semibold transition disabled:opacity-40">
+        Confirm Selection
+      </button>
+
+      <input type="hidden" name="payment_method" value="esewa">
+
+      <button type="submit"
+              name="category_id"
+              value="{{ category.id }}"
+              {% if not request.user.is_authenticated %}disabled{% endif %}
+              class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition disabled:opacity-40 flex items-center justify-center gap-2 mt-2">
+        <span>Pay Advance with</span>
+        <span class="font-bold">eSewa</span>
+      </button>
+
+    </div>
+  </form>
+  {% endfor %}
+</section>
+
+<script>
+function getLocation(catId) {
+    const addressInput = document.getElementById('address_' + catId);
+    const latInput = document.getElementById('lat_' + catId);
+    const lngInput = document.getElementById('lng_' + catId);
+
+    // Provide immediate feedback
+    addressInput.value = "Locating...";
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                
+                latInput.value = lat;
+                lngInput.value = lng;
+                addressInput.value = "Lat: " + lat.toFixed(5) + ", Lng: " + lng.toFixed(5);
+            },
+            function(error) {
+                addressInput.value = ""; // Clear the "Locating..." text
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("Please enable location permissions in your browser settings.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        alert("The request to get user location timed out.");
+                        break;
+                    default:
+                        alert("An unknown error occurred.");
+                        break;
+                }
+            },
+            { 
+                enableHighAccuracy: true, 
+                timeout: 8000, 
+                maximumAge: 0 
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by your browser.");
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "foodcateringtem/frontend.html" %}
+{% load static %}
+
+{% block maincontent %}
+<section class="py-20 bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <h1 class="text-4xl font-bold mb-6 text-center">
+      {{ service.title }}
+    </h1>
+
+    {% if service.image %}
+      <img src="{{ service.image.url }}"
+           class="rounded-3xl shadow-xl mb-8 mx-auto">
+    {% endif %}
+
+    <div class="text-lg text-gray-700 leading-relaxed">
+      {{ service.description|linebreaks }}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

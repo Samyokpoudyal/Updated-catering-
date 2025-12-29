@@ -1,0 +1,61 @@
+{% extends "foodcateringtem/frontend.html" %}
+{% block maincontent %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delivery Address</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6">
+
+  <form method="POST" class="max-w-md mx-auto bg-white p-4 rounded shadow">
+    {% csrf_token %}
+
+    <!-- Address input (GOES HERE) -->
+    <input
+      id="address"
+      name="address"
+      placeholder="Enter delivery address"
+      class="w-full border p-3 rounded mb-3"
+      required
+    />
+
+    <!-- Hidden fields -->
+    <input type="hidden" name="latitude" id="lat">
+    <input type="hidden" name="longitude" id="lng">
+
+    <button
+      type="submit"
+      class="w-full bg-green-600 text-white py-2 rounded"
+    >
+      Continue
+    </button>
+  </form>
+
+  <!-- Google Maps script (GOES HERE) -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+
+  <!-- Autocomplete logic (GOES HERE) -->
+  <script>
+    const addressInput = document.getElementById("address");
+
+    const autocomplete = new google.maps.places.Autocomplete(addressInput);
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+
+      if (!place.geometry) return;
+
+      document.getElementById("lat").value =
+        place.geometry.location.lat();
+
+      document.getElementById("lng").value =
+        place.geometry.location.lng();
+    });
+  </script>
+
+</body>
+</html>
+{% endblock maincontent %}

@@ -1,0 +1,201 @@
+{% extends "foodcateringtem/frontend.html" %}
+{% load static %}
+
+{% block maincontent %}
+
+<section class="py-16 bg-slate-100">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Title -->
+    <div class="text-center mb-14">
+      <p class="text-sm tracking-widest text-amber-600 font-semibold uppercase mb-2">
+        Freshly Crafted
+      </p>
+
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900">
+        Our <span class="text-amber-500">Menu</span>
+      </h1>
+
+      <div class="mt-4 flex justify-center">
+        <span class="w-16 h-1 bg-amber-500 rounded-full"></span>
+      </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+
+      <!-- IMAGE COLUMN -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24 rounded-2xl overflow-hidden shadow-lg">
+          <img
+            src="{% static 'bg-img.jpg' %}"
+            alt="Catering"
+            class="w-full h-96 object-cover"
+          >
+          <div class="bg-white p-4 text-center">
+            <p class="text-sm font-semibold text-gray-700">
+              Fresh • Hygienic • Delicious
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MENU COLUMN -->
+      <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+
+        {% for category in categories %}
+        <form method="POST" action="{% url 'party' %}">
+          {% csrf_token %}
+
+          <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition flex flex-col h-full">
+
+            <!-- CATEGORY HEADER -->
+            <div class="px-6 py-4 border-b text-center">
+              <h2 class="text-lg font-bold text-gray-900">
+                {{ category.name }}
+              </h2>
+              <p class="text-sm font-semibold text-amber-600 mt-1">
+                Rs. {{ category.price_info }}
+              </p>
+            </div>
+
+            <!-- ITEMS -->
+            <div class="px-6 py-5 space-y-4 flex-grow">
+
+              {% for dish in category.dishes.all %}
+              <div>
+                {% if not dish.subitems.all %}
+                  <label class="flex items-center gap-3 text-base font-semibold text-gray-800">
+                    <input type="checkbox"
+                           name="dishes_{{ category.id }}"
+                           value="{{ dish.id }}"
+                           class="accent-amber-500 scale-110">
+                    {{ dish.name }}
+                  </label>
+                {% else %}
+                  <p class="font-bold text-gray-900 text-base mb-2">
+                    {{ dish.name }}
+                  </p>
+                  <div class="ml-4 space-y-2 bg-slate-50 p-3 rounded-lg border border-gray-100">
+                    {% for sub in dish.subitems.all %}
+                    <label class="flex items-center gap-3 text-sm font-medium text-gray-700">
+                      <input type="checkbox"
+                             name="dish_{{ dish.id }}"
+                             value="{{ sub.id }}"
+                             class="accent-amber-500 scale-110">
+                      {{ sub.name }}
+                    </label>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+              {% endfor %}
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="px-6 pb-6 border-t">
+
+              {% if not request.user.is_authenticated %}
+              <p class="text-red-500 text-sm mb-2 text-center">
+                Please <a href="{% url 'login' %}" class="underline">log in</a> to place an order.
+              </p>
+              {% endif %}
+
+              <!-- DELIVERY ADDRESS FIELD -->
+              <label class="block text-sm font-semibold text-gray-500 mt-4 mb-1">
+                Delivery Address
+              </label>
+              <div class="flex gap-2 items-center">
+                <input type="text"
+                       name="delivery_address"
+                       id="address"
+                       placeholder="Enter delivery address"
+                       required
+                       class="w-full border rounded-md px-3 py-2 text-sm mb-2">
+
+                <!-- Location button -->
+                <button type="button"
+                        id="detect-location"
+                        class="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition shadow-md hover:shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 2a8 8 0 018 8 8 8 0 11-16 0 8 8 0 018-8zm0 2a6 6 0 100 12 6 6 0 000-12zm0 1a5 5 0 11-0.001 10.001A5 5 0 0110 5z" clip-rule="evenodd" />
+                  </svg>
+                  Use Location
+                </button>
+              </div>
+
+              <!-- Hidden fields for lat/lng -->
+              <input type="hidden" id="latitude" name="latitude">
+              <input type="hidden" id="longitude" name="longitude">
+
+              <!-- EVENT DATE -->
+              <label class="block text-sm font-semibold text-gray-500 mt-4 mb-1">
+                Event Date
+              </label>
+              <input type="date"
+                     name="event_date"
+                     required
+                     class="w-full border rounded-md px-3 py-2 text-sm mb-4">
+
+              <!-- Confirm Selection Button -->
+              <button type="submit"
+                      name="category_id"
+                      value="{{ category.id }}"
+                      {% if not request.user.is_authenticated %}disabled{% endif %}
+                      class="w-full bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-lg font-semibold transition disabled:opacity-40 mb-2">
+                Confirm Selection
+              </button>
+
+              <!-- Hidden field for payment method -->
+              <input type="hidden" name="payment_method" value="esewa">
+
+              <!-- Pay Advance Button -->
+              <button type="submit"
+                      name="category_id"
+                      value="{{ category.id }}"
+                      {% if not request.user.is_authenticated %}disabled{% endif %}
+                      class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition disabled:opacity-40 flex items-center justify-center gap-2 mt-2">
+                <span>Pay Advance with</span>
+                <span class="font-bold">eSewa</span>
+              </button>
+
+              <p class="text-xs text-gray-500 text-center mt-2">
+                You will be redirected to eSewa to pay the advance
+              </p>
+
+            </div>
+          </div>
+        </form>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GEOLOCATION SCRIPT -->
+<script>
+document.getElementById('detect-location').addEventListener('click', function() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      // Set hidden fields
+      document.getElementById('latitude').value = lat;
+      document.getElementById('longitude').value = lng;
+
+      // Optional: Show address in input
+      document.getElementById('address').value = `Lat: ${lat}, Lng: ${lng}`;
+    }, function() {
+      alert('Geolocation failed or permission denied.');
+    });
+  } else {
+    alert('Geolocation is not supported by your browser.');
+  }
+});
+</script>
+
+{% endblock %}
