@@ -1,83 +1,96 @@
-{% extends "foodcateringtem/frontend.html" %}
+{% extends "foodcateringtem/base.html" %}
 {% load static %}
 
 {% block maincontent %}
+<style>
+    .font-serif { font-family: 'Playfair Display', serif; }
+    .font-sans { font-family: 'Inter', sans-serif; }
+    .service-card { border-bottom: 1px solid #f1f5f9; padding-bottom: 2rem; margin-bottom: 2rem; }
+</style>
 
-<!-- Hero Section -->
-<section class="h-screen bg-[url('{% static "cateringpictures.jpg" %}')] bg-cover bg-center flex items-center justify-center">
-  <div class="text-center text-white px-6 py-12 bg-black/60 rounded-2xl max-w-3xl space-y-6">
-    <h2 class="text-3xl md:text-5xl font-bold drop-shadow-lg">Catering Services</h2>
-    <p class="text-base md:text-lg leading-relaxed drop-shadow">
-      Celebrate your moments with flavor, freshness, and festive energy. S&S Food Catering makes every event special.
-    </p>
-    <a href="#services" 
-       class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
-      Explore Services 🍽️
-    </a>
-  </div>
+<section class="relative h-[50vh] flex items-center justify-center bg-slate-900">
+    <img src="{% static 'cateringpictures.jpg' %}" class="absolute inset-0 w-full h-full object-cover opacity-50" alt="Catering Services">
+    <div class="relative z-10 text-center px-6">
+        <h1 class="text-4xl md:text-5xl font-serif text-white mb-2">Catering <span class="italic font-light">Services</span></h1>
+        <div class="w-12 h-1 bg-amber-500 mx-auto mb-4"></div>
+        <p class="text-[11px] uppercase tracking-[0.3em] text-amber-200 font-bold">Exquisite Events · Tailored Menus</p>
+    </div>
 </section>
 
-<!-- Service Categories -->
-<section id="services" class="py-20 px-6 md:px-12 bg-gray-50">
-  <div class="max-w-6xl mx-auto text-center">
-    <h3 class="text-3xl md:text-4xl font-bold text-amber-600 mb-12">Catering Services</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+        
+        <div class="text-center mb-20">
+            <h2 class="text-[11px] font-bold tracking-[0.2em] text-emerald-600 uppercase mb-4">The S&S Philosophy</h2>
+            <p class="text-slate-600 text-sm leading-relaxed font-sans italic max-w-2xl mx-auto">
+                We believe every event tells a story. From seasonal ingredients to impeccable presentation, 
+                our team designs culinary experiences that leave a lasting impression on your guests.
+            </p>
+        </div>
 
-      <!-- Wedding Catering -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition">
-        <img src="{% static 'birthdaycatering.jpg' %}" alt="Wedding Catering" class="w-full h-48 object-cover rounded-xl mb-4">
-        <h4 class="text-xl font-semibold mb-2 text-amber-600">Wedding Catering</h4>
-        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
-          Your dream wedding made perfect! We take care of exquisite food so you can enjoy every moment stress-free.
-        </p>
-      </div>
+        <div class="space-y-16">
+            
+            <div class="grid md:grid-cols-2 gap-10 items-center service-card border-none!">
+                <img src="{% static 'birthdaycatering.jpg' %}" class="rounded-sm grayscale hover:grayscale-0 transition-all duration-700 h-64 w-full object-cover shadow-sm" alt="Wedding">
+                <div>
+                    <h3 class="text-xl font-serif text-slate-900 mb-3">Wedding <span class="italic">Excellence</span></h3>
+                    <p class="text-xs text-slate-500 leading-relaxed uppercase tracking-tight font-medium mb-4">Professional staff · Custom Decor · Gourmet Plating</p>
+                    <p class="text-sm text-slate-600 font-sans leading-relaxed">Your dream wedding made perfect. We handle every culinary detail so you can focus on the moments that matter.</p>
+                </div>
+            </div>
 
-      <!-- Corporate Catering -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition">
-        <img src="{% static 'dcatering.jpg' %}" alt="Corporate Catering" class="w-full h-48 object-cover rounded-xl mb-4">
-        <h4 class="text-xl font-semibold mb-2 text-amber-600">Corporate Catering</h4>
-        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
-          Professional catering for offices and events. Impress your clients and employees with our customized menus.
-        </p>
-      </div>
+            <div class="grid md:grid-cols-2 gap-10 items-center service-card flex-row-reverse">
+                <div class="md:order-2">
+                    <img src="{% static 'dcatering.jpg' %}" class="rounded-sm grayscale hover:grayscale-0 transition-all duration-700 h-64 w-full object-cover shadow-sm" alt="Corporate">
+                </div>
+                <div class="md:order-1 text-right md:text-left">
+                    <h3 class="text-xl font-serif text-slate-900 mb-3">Corporate <span class="italic">Functions</span></h3>
+                    <p class="text-xs text-slate-500 leading-relaxed uppercase tracking-tight font-medium mb-4">Business Meetings · Boardroom Lunch · Annual Galas</p>
+                    <p class="text-sm text-slate-600 font-sans leading-relaxed">Impress your clients and team with professional menus tailored to your company’s brand and schedule.</p>
+                </div>
+            </div>
 
-      <!-- Private Events -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition">
-        <img src="{% static 'weedingcatering.jpg' %}" alt="Private Event Catering" class="w-full h-48 object-cover rounded-xl mb-4">
-        <h4 class="text-xl font-semibold mb-2 text-amber-600">Private Events</h4>
-        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
-          Make your next gathering unforgettable. We tailor fine dining experiences for small and medium events.
-        </p>
-      </div>
+            <div class="grid md:grid-cols-2 gap-10 items-center service-card border-none">
+                <img src="{% static 'weedingcatering.jpg' %}" class="rounded-sm grayscale hover:grayscale-0 transition-all duration-700 h-64 w-full object-cover shadow-sm" alt="Private">
+                <div>
+                    <h3 class="text-xl font-serif text-slate-900 mb-3">Private <span class="italic">Gatherings</span></h3>
+                    <p class="text-xs text-slate-500 leading-relaxed uppercase tracking-tight font-medium mb-4">Intimate Dinners · Milestone Birthdays · Receptions</p>
+                    <p class="text-sm text-slate-600 font-sans leading-relaxed">Elevate your home gathering with a bespoke dining experience crafted by our master chefs.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-24 pt-16 border-t border-slate-100">
+            <h2 class="text-[11px] font-bold tracking-[0.2em] text-emerald-600 uppercase mb-10 text-center">Why Choose S&S Catering</h2>
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
+                <div class="flex justify-between border-b border-slate-50 pb-4">
+                    <span class="text-xs font-bold uppercase tracking-tight">Ingredients</span>
+                    <span class="text-xs text-slate-500 italic">100% Locally Sourced</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-50 pb-4">
+                    <span class="text-xs font-bold uppercase tracking-tight">Menus</span>
+                    <span class="text-xs text-slate-500 italic">Seasonally Tailored</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-50 pb-4">
+                    <span class="text-xs font-bold uppercase tracking-tight">Experience</span>
+                    <span class="text-xs text-slate-500 italic">Stress-Free Planning</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-50 pb-4">
+                    <span class="text-xs font-bold uppercase tracking-tight">Service</span>
+                    <span class="text-xs text-slate-500 italic">Master Chef Led</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-20 text-center">
+            <img src="{% static 'menu.png' %}" alt="Menu" class="w-12 h-12 mx-auto mb-6 opacity-40 grayscale">
+            <p class="text-[11px] text-slate-400 uppercase tracking-widest mb-6 font-bold">Begin Your Journey</p>
+            <a href="{% url 'cateringmenu' %}" class="inline-block bg-slate-900 text-white text-[10px] font-bold uppercase tracking-[0.2em] px-10 py-4 rounded-sm hover:bg-emerald-700 transition-all shadow-sm active:scale-95">
+                Explore Full Menu
+            </a>
+        </div>
 
     </div>
-  </div>
 </section>
-
-<!-- About / Details Section -->
-<section class="py-16 px-6 md:px-12 bg-white">
-  <div class="max-w-4xl mx-auto text-center space-y-6">
-    <h3 class="text-3xl font-bold text-amber-600 mb-4">Why Choose Us?</h3>
-    <p class="text-gray-700 text-base md:text-lg leading-relaxed">
-      S&S Food Catering delivers hot, fresh, and delicious meals tailored for every event. We carefully design menus according to seasons, occasions, culinary trends, and your preferences.
-    </p>
-    <p class="text-gray-700 text-base md:text-lg leading-relaxed">
-      From weddings and corporate events to private parties, our goal is to make every event memorable and stress-free for you and your guests.
-    </p>
-  </div>
-</section>
-
-<!-- Menu Section -->
-<section id="menu" class="py-16 bg-gray-50 text-center">
-  <h3 class="text-3xl md:text-4xl font-bold text-amber-600 mb-6">Our Menu</h3>
-  <img src="{% static 'menu.png' %}" alt="Menu" class="mx-auto w-32 h-32 object-cover rounded-full shadow-xl border-4 border-amber-500 mb-6">
-  <p class="max-w-xl mx-auto text-gray-600 mb-6">
-    Explore our wide range of delicious dishes carefully prepared for every occasion.
-  </p>
-  <a href="{% url 'cateringmenu' %}" 
-     class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
-    Explore Full Menu 🍽️
-  </a>
-</section>
-
 {% endblock %}

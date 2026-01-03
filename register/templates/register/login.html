@@ -4,74 +4,64 @@
 
 {% block maincontent %}
 
-<div class="min-h-screen flex items-center justify-center bg-gray-200 py-12 px-6">
-  <div class="max-w-md w-full bg-white p-10 rounded-3xl shadow-2xl transition duration-300">
+<div class="min-h-[85vh] flex items-center justify-center bg-[#fafafa] py-20 px-6 font-sans">
+    <div class="max-w-md w-full bg-white p-10 border border-slate-100 shadow-sm">
 
-    <!-- Header -->
-    <div class="text-center mb-6">
-      <h2 class="text-3xl font-extrabold text-amber-700">Welcome Back!</h2>
-      <p class="mt-2 text-sm text-amber-600">
-        Log in to continue to S&S Food Catering 🍽️
-      </p>
-    </div>
+        <div class="text-center mb-10">
+            <span class="text-[10px] font-bold tracking-[0.3em] text-emerald-600 uppercase">Secure Access</span>
+            <h2 class="text-3xl font-serif text-slate-900 mt-2">Welcome Back</h2>
+            <div class="w-8 h-px bg-amber-400 mx-auto mt-4"></div>
+        </div>
 
-    <!-- Login Form -->
-    <form method="POST" class="space-y-6">
-      {% csrf_token %}
-      <fieldset class="space-y-4">
-        <legend class="text-lg font-semibold text-amber-700 border-b border-amber-300 pb-2">
-          Login
-        </legend>
-        {{ form|crispy }}
-      </fieldset>
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="text-slate-600">
+                <style>
+                    label { font-size: 11px !important; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: #64748b !important; }
+                    input { border-radius: 2px !important; border-color: #e2e8f0 !important; padding: 10px !important; font-size: 14px !important; }
+                    input:focus { border-color: #10b981 !important; ring-color: #10b981 !important; }
+                </style>
+                {{ form|crispy }}
+            </div>
 
-      <button type="submit"
-        class="w-full py-3 rounded-full text-white bg-gradient-to-r from-amber-500 to-amber-600
-               hover:from-amber-600 hover:to-amber-700 font-semibold shadow-lg transition">
-        Log In
-      </button>
+            <div class="flex justify-between items-center">
+                <a href="{% url 'change-password' %}" class="text-[11px] font-bold uppercase tracking-tight text-slate-400 hover:text-amber-600 transition-colors">
+                    Forgot Password?
+                </a>
+            </div>
 
-      <div class="text-left">
-        <a href="{% url 'change-password' %}"
-           class="text-amber-600 hover:text-amber-700 text-sm font-medium">
-          Forgot Password?
+            <button type="submit" class="w-full py-4 bg-slate-900 text-white text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-emerald-700 transition-all shadow-sm active:scale-[0.98]">
+                Log In
+            </button>
+        </form>
+
+        <div class="relative flex items-center my-8">
+            <div class="flex-grow border-t border-slate-100"></div>
+            <span class="px-4 text-[10px] font-bold text-slate-300 uppercase tracking-widest">Or</span>
+            <div class="flex-grow border-t border-slate-100"></div>
+        </div>
+
+        <a href="{% provider_login_url 'google' %}" class="flex items-center justify-center gap-3 p-3 border border-slate-200 hover:bg-slate-50 transition-colors w-full !no-underline group">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+            </svg>
+            <span class="text-[11px] font-bold uppercase tracking-widest text-slate-700">Continue with Google</span>
         </a>
-      </div>
-    </form>
 
-    <!-- OR Divider -->
-    <div class="relative flex items-center my-6">
-      <div class="flex-grow border-t border-gray-300"></div>
-      <span class="px-3 text-gray-500 text-sm">OR</span>
-      <div class="flex-grow border-t border-gray-300"></div>
+        <div class="text-center mt-10">
+            <p class="text-[11px] text-slate-400 uppercase tracking-widest">
+                New to S&S? 
+                <a href="{% url 'register' %}" class="text-emerald-600 font-bold hover:underline ml-1">
+                    Create Account
+                </a>
+            </p>
+        </div>
+
     </div>
-
-  <a href="{% provider_login_url 'google' %}"
-   class="relative flex items-center p-4 rounded-full border !no-underline hover:!text-inherit hover:!bg-gray-100 w-full">
-
-    <!-- Google Logo SVG -->
-    <svg class="w-6 h-6 absolute left-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
-        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
-    </svg>
-
-    <!-- Button Text -->
-    <span class="text-center w-full font-semibold">Sign in with Google</span>
-</a>
-    <!-- Footer -->
-    <div class="text-center border-t border-amber-300 pt-4 mt-6">
-      <small class="text-gray-700">
-        Need an account?
-        <a href="{% url 'register' %}"
-           class="text-amber-600 hover:text-amber-700 font-semibold">
-          Sign Up
-        </a>
-      </small>
-    </div>
-
-  </div>
 </div>
 
 {% endblock %}

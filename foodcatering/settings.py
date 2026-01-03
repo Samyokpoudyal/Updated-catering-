@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,12 +50,62 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google'
     
 ]
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Catering Admin",
+    "site_header": "Catering Dashboard",
+    "site_brand": "Catering System",
+
+    "welcome_sign": "Welcome to the Catering Admin Panel",
+
+    "search_model": ["auth.User", "orders.Order"],
+
+    "topmenu_links": [
+        {"name": "Dashboard", "url": "admin:index", "permissions": ["auth.view_user"]},
+    ],
+
+    "usermenu_links": [
+        {"name": "Support", "url": "https://docs.djangoproject.com/", "new_window": True},
+    ],
+
+    "show_sidebar": True,
+    "navigation_expanded": True,
+
+    "icons": {
+        "auth": "fas fa-users",
+        "auth.user": "fas fa-user",
+        "orders.Order": "fas fa-receipt",
+        "orders.MenuCategory": "fas fa-layer-group",
+        "orders.Dish": "fas fa-utensils",
+        "orders.SubItem": "fas fa-list",
+    },
+
+    "default_icon_parents": "fas fa-folder",
+    "default_icon_children": "fas fa-file",
+
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {
+        "orders.order": "vertical_tabs",
+    },
+}
+JAZZMIN_UI_TWEAKS = {
+    "theme": "solar",
+    "dark_mode_theme": "darkly",
+
+    "navbar": "navbar-dark",
+    "sidebar": "sidebar-dark-primary",
+
+    "accent": "accent-info",
+    "brand_colour": "navbar-primary",
+}
+
 SITE_ID = 1
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'APP': {
-            'client_id': '&&--',
-            'secret': '####',
+         'APP': {
+            'client_id': '85101538496-gl631krgslo1dilfo4mmd4u5o413c6hf.apps.googleusercontent.com',
+            'secret': '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',
         },
         'SCOPE': [
             'profile',
@@ -176,5 +227,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'poudyalsamyok640@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = '[][][][][][][][][][]'
+EMAIL_HOST_PASSWORD = 'kerl ioaf rxqz pxbo'
 

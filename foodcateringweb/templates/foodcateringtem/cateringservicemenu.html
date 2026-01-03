@@ -2,81 +2,101 @@
 {% load static %}
 
 {% block maincontent %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
-<section class="py-16 bg-slate-100">
-  <div class="max-w-7xl mx-auto px-6">
+<style>
+    :root { --accent: #059669; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+    .font-sans { font-family: 'Inter', sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .menu-gradient { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
+</style>
 
-    <!-- TITLE -->
-    <div class="text-center mb-14">
-      <p class="text-sm tracking-widest text-emerald-600 font-semibold uppercase mb-2">
-        Freshly Crafted
-      </p>
-      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900">
-        Our <span class="text-emerald-600">Menu</span>
-      </h1>
-      <div class="mt-4 flex justify-center">
-        <span class="w-16 h-1 bg-emerald-600 rounded-full"></span>
+<section class="menu-gradient min-h-screen font-sans">
+  
+  <div class="max-w-7xl mx-auto px-6 pt-20 pb-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-xl">
+        <span class="text-emerald-600 font-bold tracking-[0.2em] uppercase text-xs mb-3 block">Artisan Catering</span>
+        <h1 class="text-6xl md:text-7xl font-serif text-slate-900 leading-tight">
+          The <span class="italic text-emerald-600">Menu</span>
+        </h1>
       </div>
+      
     </div>
+  </div>
 
-    <!-- MAIN GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+  <div class="max-w-7xl mx-auto px-6 mb-16">
+    <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-2 border-b border-slate-200">
+      <button class="px-6 py-2 text-sm font-semibold bg-slate-900 text-white rounded-full">All Collections</button>
+      {% for category in categories %}
+        <a href="#{{ category.name|slugify }}" class="px-6 py-2 text-sm font-medium text-slate-500 hover:text-emerald-600 transition-all whitespace-nowrap uppercase tracking-widest">
+          {{ category.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
 
-      <!-- IMAGE COLUMN -->
-      <div class="lg:col-span-1">
-        <div class="sticky top-24 rounded-3xl overflow-hidden shadow-lg bg-white">
-          <img src="{% static 'bg-img.jpg' %}" alt="Catering"
-               class="w-full h-96 object-cover transition-transform duration-500 hover:scale-105">
-          <div class="p-4 text-center text-sm font-medium text-slate-700">
-            Fresh • Hygienic • Delicious
+  <div class="max-w-7xl mx-auto px-6 pb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+      <div class="lg:col-span-5 hidden lg:block">
+        <div class="sticky top-12">
+          <div class="relative group">
+            <div class="absolute -inset-4 border border-slate-200 rounded-sm z-0 translate-x-2 translate-y-2"></div>
+            
+            <div class="relative z-10 overflow-hidden bg-slate-100 shadow-2xl">
+              <img src="{% static 'bg-img.jpg' %}" alt="Catering"
+                   class="w-full h-[650px] object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-1000">
+            </div>
+
+            
           </div>
         </div>
       </div>
 
-      <!-- MENU COLUMN -->
-      <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-
+      <div class="lg:col-span-7">
         {% for category in categories %}
-        <!-- CARD -->
-        <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 hover:scale-105 flex flex-col h-full border border-slate-200 overflow-hidden">
-
-          <!-- HEADER -->
-          <div class="px-6 py-6 text-center bg-gradient-to-r from-emerald-400 to-emerald-500">
-            <h2 class="text-xl font-extrabold text-white tracking-wide">{{ category.name }}</h2>
+        <div id="{{ category.name|slugify }}" class="mb-24 last:mb-0">
+          
+          <div class="mb-10 relative">
+            <span class="text-[8rem] font-serif font-bold text-slate-100 absolute -top-16 -left-4 z-0 pointer-events-none select-none">
+                0{{ forloop.counter }}
+            </span>
+            <h2 class="relative z-10 text-4xl font-serif text-slate-900 border-l-4 border-emerald-500 pl-6">
+                {{ category.name }}
+            </h2>
           </div>
 
-          <!-- ITEMS -->
-          <div class="px-6 py-5 flex-grow space-y-4 overflow-y-auto">
-
+          <div class="space-y-12">
             {% for dish in category.dishes.all %}
-            <div class="border-b border-slate-100 pb-3 last:border-b-0">
-
-              {% if not dish.subitems.all %}
-                <p class="text-sm font-medium text-slate-800 hover:text-emerald-600 transition">
+            <div class="group relative">
+              <div class="flex items-baseline justify-between">
+                <h3 class="text-xl font-semibold text-slate-800 group-hover:text-emerald-700 transition-colors">
                   {{ dish.name }}
-                </p>
-              {% else %}
-                <p class="font-semibold text-slate-900 mb-2">{{ dish.name }}</p>
-                <div class="flex flex-wrap gap-2">
+                </h3>
+                <span class="w-12 h-[1px] bg-slate-200 group-hover:w-20 group-hover:bg-emerald-300 transition-all duration-500"></span>
+              </div>
+
+              {% if dish.subitems.all %}
+                <div class="mt-4 flex flex-wrap gap-x-6 gap-y-2">
                   {% for sub in dish.subitems.all %}
-                    <span class="bg-emerald-100 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full shadow-sm">
-                      {{ sub.name }}
-                    </span>
+                  <div class="flex items-center space-x-2">
+                    <span class="w-1 h-1 bg-emerald-500 rounded-full"></span>
+                    <span class="text-sm text-slate-500 font-light lowercase tracking-wide">{{ sub.name }}</span>
+                  </div>
                   {% endfor %}
                 </div>
+              
               {% endif %}
-
             </div>
             {% endfor %}
-
           </div>
-
         </div>
         {% endfor %}
-
       </div>
+
     </div>
   </div>
 </section>
-
 {% endblock %}

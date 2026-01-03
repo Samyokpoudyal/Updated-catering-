@@ -3,44 +3,53 @@
 
 {% block maincontent %}
 
-<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-[90vh] flex items-center justify-center bg-[#fafafa] py-20 px-6 font-sans">
 
-  <!-- Profile Card -->
-  <div class="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-2xl border border-gray-200">
+  <div class="bg-white border border-slate-100 shadow-sm p-10 w-full max-w-xl">
 
-    <!-- Profile Header -->
-    <div class="flex flex-col items-center mb-8">
-      <!-- Placeholder Profile Circle -->
-      <div class="w-24 h-24 rounded-full bg-amber-100 flex items-center justify-center text-3xl font-bold text-amber-600 mb-4">
+    <div class="flex flex-col items-center mb-12">
+      <div class="w-20 h-20 rounded-full bg-slate-900 flex items-center justify-center text-2xl font-serif text-white mb-6 shadow-inner">
         {{ user.username|slice:":1"|upper }}
       </div>
-      <h2 class="text-2xl font-extrabold text-gray-800">{{ user.username }}</h2>
-      <p class="text-gray-500">{{ user.email }}</p>
+      
+      <span class="text-[10px] font-bold tracking-[0.3em] text-emerald-600 uppercase mb-2">Member Profile</span>
+      <h2 class="text-3xl font-serif text-slate-900 leading-tight">{{ user.username }}</h2>
+      <p class="text-xs text-slate-400 uppercase tracking-widest mt-2">{{ user.email }}</p>
+      
+      <div class="w-8 h-px bg-amber-400 mt-6"></div>
     </div>
 
-    <!-- Update Form -->
-    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form method="POST" enctype="multipart/form-data" class="space-y-8">
       {% csrf_token %}
 
-      <fieldset class="space-y-6 border border-gray-200 rounded-2xl p-6 bg-gray-50">
-        <legend class="text-lg font-semibold text-amber-600 px-2">
-          Update Your Information
-        </legend>
+      <div class="text-slate-600">
+        <style>
+            label { font-size: 11px !important; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: #64748b !important; margin-bottom: 8px !important; display: block; }
+            input, select, textarea { border-radius: 2px !important; border-color: #e2e8f0 !important; padding: 12px !important; font-size: 14px !important; width: 100%; }
+            input:focus { border-color: #10b981 !important; outline: none !important; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.05) !important; }
+            .help-block, .text-muted { font-size: 10px !important; color: #94a3b8 !important; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+        </style>
 
-        <!-- Django Forms -->
-        {{ u_form|crispy }}
-        {{ p_form|crispy }}
-      </fieldset>
+        <div class="space-y-6">
+            {{ u_form|crispy }}
+            {{ p_form|crispy }}
+        </div>
+      </div>
 
-      <!-- Submit Button -->
-      <div class="pt-2">
+      <div class="pt-6 border-t border-slate-50">
         <button type="submit" 
-                class="w-full py-3 bg-amber-500 text-white font-semibold rounded-full hover:bg-amber-600 transition duration-300 shadow-lg hover:shadow-xl">
-          Update Profile
+                class="w-full py-4 bg-slate-900 text-white text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-emerald-700 transition-all shadow-sm active:scale-[0.98]">
+          Update Profile Information
         </button>
       </div>
 
     </form>
+
+    <div class="mt-8 text-center">
+        <p class="text-[10px] text-slate-300 uppercase tracking-widest italic">
+            Secure Member Area · S&S Food Catering
+        </p>
+    </div>
 
   </div>
 </div>
