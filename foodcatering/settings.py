@@ -45,11 +45,32 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django.contrib.sites',
     'allauth',
+    'esewa_payment',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google'
     
 ]
+SITE_ID = 1
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+         'APP': {
+            'client_id': '898989',
+            'secret': '7979',
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+SESSION_COOKIE_AGE = 15 * 60
+
 
 
 JAZZMIN_SETTINGS = {
@@ -100,22 +121,7 @@ JAZZMIN_UI_TWEAKS = {
     "brand_colour": "navbar-primary",
 }
 
-SITE_ID = 1
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-         'APP': {
-            'client_id': '85101538496-gl631krgslo1dilfo4mmd4u5o413c6hf.apps.googleusercontent.com',
-            'secret': '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',
-        },
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -227,5 +233,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'poudyalsamyok640@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'kerl ioaf rxqz pxbo'
+EMAIL_HOST_PASSWORD = '232323232'
 

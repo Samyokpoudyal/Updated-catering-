@@ -38,12 +38,24 @@ class SubItem(models.Model):
 
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('processing', 'In Process'),
+        ('confirmed', 'Confirmed'),
+        ('cancelled', 'Cancelled'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
     event_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_confirmed = models.BooleanField(default=False)
 
-    # New location fields
+    # New status field
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='processing'
+    )
+
+    # Location fields
     delivery_address = models.TextField(blank=True, null=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)

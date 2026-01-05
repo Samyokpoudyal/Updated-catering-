@@ -6,6 +6,7 @@ from .views import (
     MenuItemsView, BookingServiceView, party_pack_menu_view,
     LunchboxMenuItemsView, PartyPackView, LunchboxPackView,contact,CateringView,catering_menu_view
 )
+from esewa_payment.views import EsewaTemplate
 
 urlpatterns = [
     path("", AboutView.as_view(), name='foodcateringweb.home'),
@@ -35,4 +36,5 @@ urlpatterns = [
     path("booking/", BookingServiceView.as_view(), name='booking'),
     path("success/", BookingServiceView.as_view(), name='success'), 
     path("contact/", contact, name="contact"),
+    path("payment_esewa/<int:category_price_info>/<int:category_id>", EsewaTemplate.as_view(), name="esewa"),
 ]

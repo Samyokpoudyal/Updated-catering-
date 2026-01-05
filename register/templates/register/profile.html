@@ -7,6 +7,7 @@
 
   <div class="bg-white border border-slate-100 shadow-sm p-10 w-full max-w-xl">
 
+    <!-- PROFILE HEADER -->
     <div class="flex flex-col items-center mb-12">
       <div class="w-20 h-20 rounded-full bg-slate-900 flex items-center justify-center text-2xl font-serif text-white mb-6 shadow-inner">
         {{ user.username|slice:":1"|upper }}
@@ -19,6 +20,7 @@
       <div class="w-8 h-px bg-amber-400 mt-6"></div>
     </div>
 
+    <!-- PROFILE FORM -->
     <form method="POST" enctype="multipart/form-data" class="space-y-8">
       {% csrf_token %}
 
@@ -42,8 +44,77 @@
           Update Profile Information
         </button>
       </div>
-
     </form>
+
+    <!-- PREVIOUS ORDERS -->
+    <div class="mt-16 border-t border-slate-100 pt-10">
+      <h3 class="text-lg font-serif text-slate-900 mb-6">Previous Orders</h3>
+
+      {% if orders %}
+        <div class="space-y-4">
+          {% for order in orders %}
+            <div class="border border-slate-100 p-4 rounded-sm bg-[#fcfcfc]">
+
+              <!-- Order header -->
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-xs uppercase tracking-widest text-slate-400">
+                  Order #{{ order.id }}
+                </span>
+
+                <!-- Status badge -->
+                {% if order.status == 'confirmed' %}
+                  <span class="text-[10px] px-3 py-1 bg-emerald-100 text-emerald-700 uppercase tracking-wider font-bold">
+                    Confirmed
+                  </span>
+                {% elif order.status == 'processing' %}
+                  <span class="text-[10px] px-3 py-1 bg-amber-100 text-amber-700 uppercase tracking-wider font-bold">
+                    In Process
+                  </span>
+                {% else %}
+                  <span class="text-[10px] px-3 py-1 bg-red-100 text-red-700 uppercase tracking-wider font-bold">
+                    Cancelled
+                  </span>
+                {% endif %}
+              </div>
+
+              <!-- Order details -->
+              <p class="text-sm text-slate-700">
+                <strong>Event Date:</strong> {{ order.event_date }}
+              </p>
+
+              <p class="text-sm text-slate-500 mt-1">
+                <strong>Delivery:</strong> {{ order.delivery_address }}
+              </p>
+
+              <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-3">
+                Ordered on {{ order.created_at|date:"M d, Y · h:i A" }}
+              </p>
+
+              <!-- Optional: Add menu items here -->
+              {% if order.selections.all %}
+                <div class="mt-2 text-sm text-slate-600">
+                  <strong>Dishes:</strong>
+                  <ul class="list-disc list-inside">
+                    {% for sel in order.selections.all %}
+                      <li>
+                        {{ sel.dish.name }} 
+                        {% if sel.subitems.exists %}
+                          ({{ sel.subitems.all|join:", " }})
+                        {% endif %}
+                        x{{ sel.quantity }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-sm text-slate-400 italic">You have not placed any orders yet.</p>
+      {% endif %}
+    </div>
 
     <div class="mt-8 text-center">
         <p class="text-[10px] text-slate-300 uppercase tracking-widest italic">

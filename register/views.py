@@ -6,7 +6,7 @@ from .models import Profiles
 from .forms import UserRegistrationForm,ProfileUpdateForm,UserUpdateForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-
+from foodcateringweb.models import Order 
 # Create your views here.
 
 def register(requests):
@@ -28,22 +28,39 @@ def logout_view(request):
 
 @login_required
 def profile(request):
-    if request.method=="POST":
-        u_form=UserUpdateForm(request.POST,instance=request.user)
-        p_form=ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profiles)
+    if request.method == "POST":
+        u_form = UserUpdateForm(
+            request.POST,
+            instance=request.user
+        )
+        p_form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=request.user.profiles
+        )
+
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request,'Your Account has been updated successfully!!')
+            messages.success(
+                request,
+                'Your Account has been updated successfully!!'
+            )
             return redirect('foodcateringweb.home')
+
     else:
-        
-        u_form=UserUpdateForm(instance=request.user)
-        p_form=ProfileUpdateForm(instance=request.user.profiles)
-    forms={
-        'u_form':u_form,
-        'p_form':p_form
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profiles)
+
+    # 🔹 FETCH USER ORDERS
+    orders = Order.objects.filter(
+        user=request.user
+    ).order_by('-created_at')
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
+        'orders': orders,   # 👈 this is new
     }
-    
-        
-    return render(request,'register/profile.html',forms)
+
+    return render(request, 'register/profile.html', context)

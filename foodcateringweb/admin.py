@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from .models import MenuCategory, Dish, SubItem, Order, MenuSelection
 
 
@@ -40,34 +41,21 @@ class MenuSelectionInline(admin.TabularInline):
 # ===============================
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = (
-        'user',
-        'event_date',
-        'delivery_address',
-        'latitude',
-        'longitude',
-        'is_confirmed',
-        'created_at',
-    )
-
-    list_filter = (
-        'is_confirmed',
-        'event_date',
-    )
-
-    search_fields = (
-        'user__username',
-    )
-
+    list_display = ('user', 'status', 'event_date', 'delivery_address', 'created_at')
+    list_filter = ('status', 'event_date', 'created_at')
+    list_editable = ('status',)  # admin can edit this column directly
+    search_fields = ('user__username', 'delivery_address')
     inlines = [MenuSelectionInline]
 
-    def get_queryset(self, request):
-        return super().get_queryset(request).select_related(
-            'user'
-        ).prefetch_related(
-            'selections__dish__category',
-            'selections__subitems',
-        )
+
+    def colored_status(self, obj):
+        colors = {
+            'processing': 'orange',
+            'confirmed': 'green',
+            'cancelled': 'red',
+        }
+        return format_html('<b style="color:{}">{}</b>', colors.get(obj.status, 'black'), obj.get_status_display())
+    colored_status.short_description = "Order Status"
 
 
 

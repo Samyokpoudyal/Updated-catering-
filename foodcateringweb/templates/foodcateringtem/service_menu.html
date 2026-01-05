@@ -124,8 +124,11 @@
               </label>
               <input type="date"
                      name="event_date"
+                     id="event_date"
                      required
                      class="w-full border border-slate-300 rounded-md px-3 py-2 text-sm mb-4 focus:outline-none focus:ring-1 focus:ring-emerald-600">
+              
+              
 
               <!-- BUTTONS -->
               <button type="submit"
@@ -136,15 +139,12 @@
                 Confirm Selection
               </button>
 
-              <input type="hidden" name="payment_method" value="esewa">
+              {% comment %} <input type="hidden" name="payment_method" value="esewa"> {% endcomment %}
 
-              <button type="submit"
-                      name="category_id"
-                      value="{{ category.id }}"
-                      {% if not request.user.is_authenticated %}disabled{% endif %}
-                      class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-md text-sm font-semibold transition mt-2 disabled:opacity-40">
+              <a href="{% url 'esewa' category.price_info category.id %}"
+                class="w-full block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-md text-sm font-semibold mt-2">
                 Pay Advance with eSewa
-              </button>
+              </a>
 
               <p class="text-xs text-slate-500 text-center mt-2">
                 You will be redirected to eSewa
@@ -183,6 +183,12 @@ function getLocation(id) {
     }
   );
 }
+
+    const d = new Date();
+    d.setDate(d.getDate() + 2);  
+    document.getElementById("event_date").min =
+    d.toISOString().split('T')[0];
+
 </script>
 
 {% endblock %}

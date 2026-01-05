@@ -1,0 +1,79 @@
+{% extends "foodcateringtem/frontend.html" %}
+
+{% block maincontent %}
+
+
+      <div class="container">
+            <h1 class="text-center mb-4">eSewa Payment Form</h1>
+                  <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST" >
+
+      <table style="width:70%" align="center" >
+            <tr> 
+                  <td> <strong>Parameter </strong> </td>
+                  <td><strong>Value</strong></td> 
+            </tr>
+            
+            <tr>
+                  <td>Amount:</td>
+                  <td> <input type="text" id="amount" name="amount" value="{{amount}}" class="form" required> <br></td>
+            </tr>
+            
+            <tr>
+                  <td>Tax Amount:</td>
+                  <td><input type="text" id="tax_amount" name="tax_amount" value ="{{tax_amount}}" class="form"  required> </td>
+            </tr>
+            
+            <tr>
+                  <td>Total Amount:</td>
+                  <td><input type="text" id="total_amount"  name="total_amount" value="{{total_amount}}" class="form"  required> </td>
+            </tr>
+              
+            <tr>
+                 
+                  <td><input type="text" id="transaction_uuid" name="transaction_uuid" value="{{uid}}" class="form" placeholder="Must be unique in every request" required>  </td>
+                  </tr>
+              
+            <tr>
+                  
+                  <td><input type="hidden" id="product_code"  name="product_code" value ="EPAYTEST" class="form"  required> </td>
+            </tr>
+              
+            <tr>
+                 
+                  <td><input type="hidden" id="product_service_charge"  name="product_service_charge" value="0" class="form"  required> </td>
+            </tr>
+              
+            <tr>
+                  <td><input type="hidden" id="product_delivery_charge" name="product_delivery_charge" value="0" class="form"  required> </td>
+            </tr>
+              
+            <tr>
+                  <td><input type="hidden" id="success_url" name="success_url" value="https://esewa.com.np" class="form"  required> </td>
+            </tr>
+              
+            <tr>
+                  <td><input type="hidden" id="failure_url" name="failure_url"  value="https://google.com" class="form"  required> </td>
+            </tr> 
+
+            <tr>
+                  <td><input type="hidden" id="signed_field_names" name="signed_field_names" value="total_amount,transaction_uuid,product_code" class="form"  required> </td>
+            </tr>
+
+            <tr>
+                  <td><input type="text" id="signature" name="signature" value="{{signature}}" class="form"  required> </td>
+            </tr>
+           
+            <br><br>
+      </table>
+      
+
+      <table style="width: 50%" align="center">
+            <tr><th>
+                  <input value=" Pay " type=submit class="btn-primary" >
+            </th></tr>
+      </table>
+      
+      </form>
+      </div>
+{% endblock %}
+
